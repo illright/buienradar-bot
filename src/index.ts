@@ -40,7 +40,7 @@ async function getRainForecast(lat: number, lon: number): Promise<string> {
     for (const line of forecastLines) {
       if (line) {
         const [precipitation, timeStr] = line.split('|');
-        if (precipitation === '0') {
+        if (parseInt(precipitation, 10) === 0) {
           if (consecutiveZeros === 0) {
             targetTime = timeStr;
           }
