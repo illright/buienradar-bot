@@ -24,7 +24,15 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - name: Publish
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
+      # - name: Deploy
+      #   uses: cloudflare/wrangler-action@v3
+      #   with:
+      #     apiToken: ${{ secrets.CF_API_TOKEN }}
+
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a574dc0b399103dc329d9a81eb71a095
+        run: |
+          pnpm add -D wrangler
+          pnpm exec wrangler pages deploy public --project-name=buienradar-bot
